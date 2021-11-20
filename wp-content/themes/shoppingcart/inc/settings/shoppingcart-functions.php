@@ -262,7 +262,8 @@ function shoppingcart_scripts() {
 		.main-slider .flex-control-nav a:hover,
 		.go-to-top .icon-bg,
 		.search-submit,
-		.vivid-red {
+		.vivid-red,
+		.view-more-btn {
 			background-color: '. esc_attr( $shoppingcart_theme_color_styles ).';
 		}
 

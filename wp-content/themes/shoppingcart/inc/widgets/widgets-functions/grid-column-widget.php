@@ -22,7 +22,7 @@ class Shoppingcart_product_grid_column_Widget extends WP_Widget {
 
 
 	function form($instance) {
-		$instance = wp_parse_args(( array ) $instance, array('title' => '','number' => '5','category' => '', 'product_type'=>'latest'));
+		$instance = wp_parse_args(( array ) $instance, array('title' => '','number' => '5','category' => '', 'product_type'=>'latest', 'disable_more' => 'on' ));
 		$title    = esc_attr($instance['title']);
 		$number = absint( $instance[ 'number' ] );
 		$category = absint($instance[ 'category' ]);
@@ -57,6 +57,11 @@ class Shoppingcart_product_grid_column_Widget extends WP_Widget {
 			</select>
 		</p>
 
+		<p>
+			<input class="checkbox" type="checkbox" <?php checked( $instance[ 'disable_more' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'disable_more' ); ?>" name="<?php echo $this->get_field_name( 'disable_more' ); ?>" /> 
+			<label for="<?php echo $this->get_field_id( 'disable_more' ); ?>"><?php esc_html_e('Disable More Button','shoppingcart'); ?></label>
+		</p>
+
 		<?php
 	}
 	function update($new_instance, $old_instance) {
@@ -66,6 +71,7 @@ class Shoppingcart_product_grid_column_Widget extends WP_Widget {
 		$instance[ 'number' ] = absint( $new_instance[ 'number' ] );
 		$instance[ 'category' ] = absint($new_instance[ 'category' ]);
 		$instance[ 'product_type' ] = sanitize_text_field($new_instance[ 'product_type' ]);
+		$instance[ 'disable_more' ] = sanitize_key($new_instance[ 'disable_more' ]);
 		return $instance;
 	}
 	function widget($args, $instance) {
@@ -76,6 +82,8 @@ class Shoppingcart_product_grid_column_Widget extends WP_Widget {
 		$number = empty( $instance[ 'number' ] ) ? 5 : $instance[ 'number' ];
 		$category = isset( $instance[ 'category' ] ) ? $instance[ 'category' ] : '';
 		$product_type = isset( $instance[ 'product_type' ] ) ? $instance[ 'product_type' ] : 'latest';
+		$disable_more = isset( $instance[ 'disable_more' ] ) ? $instance[ 'disable_more' ] : 'on';
+		
 
 		if ( $product_type == 'category' ){  // Displays Selected Category
 			$args = array(
@@ -152,11 +160,15 @@ class Shoppingcart_product_grid_column_Widget extends WP_Widget {
 						</div> <!-- end .shoppingcart-grid-product -->
 
 							<?php
+								
 					endwhile;
 					wp_reset_postdata();
-					?>
+						?>
+					
 			</div> <!-- end .shoppingcart-grid-widget-wrap -->
 
-	<?php 	echo $after_widget;
+	<?php if ($disable_more != 'on'){ ?>
+		<span class="view-more-wrap"><a class="view-more-btn" href="<?php echo esc_url(get_term_link($category)); ?>"><?php esc_html_e('View More', 'shoppingcart'); ?></a></span>
+		<?php }	echo $after_widget;
 	}
 }

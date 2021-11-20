@@ -4,7 +4,7 @@ Tags: threaded-comments, right-sidebar, four-columns, custom-background, custom-
 Requires at least: 5.6
 Tested up to: 5.8.1
 Requires PHP: 5.6
-Stable tag: 1.1.7
+Stable tag: 1.1.8
 License: GNU General Public License version 3.0
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -124,6 +124,10 @@ All the theme files and other un-specified scripts (customizer-custom-scripts.js
 =================================================================================
 
 == CHANGE LOG ==
+= 1.1.8 =
+	- New - View more button added in grid column widget
+	- Update - Color styles css added
+
 = 1.1.7 =
 	- Fix - default search button fixed
 	- Update - Added Full width for Dokan Dashboard
